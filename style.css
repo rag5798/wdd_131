@@ -1,0 +1,17 @@
+body{
+    font-size: 18px;
+    margin: 0;
+}
+
+main{
+    background-color: beige;
+    height: 100vh;
+}
+
+.placeholder{
+    color: green;
+}
+
+footer p{
+    font-size: .8em;
+}
