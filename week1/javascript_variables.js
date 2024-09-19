@@ -20,7 +20,7 @@ output("ln16", result);
 // what about this? Explain what is happening. What does NaN mean?
 result = one * three;
 output("ln21", result);
-// A not a number object
+// A not a number object. three is a string not a number
 
 // let's try changing the value of two
 two = 4;
@@ -29,7 +29,7 @@ result = one + two;
 output("ln27", result);
 // did we get the value we expected? Why didn't it work?
 // try adding 'use strict'; to the first line of our code then look at the console again. Fix the error.
-// 1 + 4 = 5
+// 1 + 4 = 5. Yes this fixed the error
 
 const myArray = [1,2,3,5];
 //add the number 4 to the end of the array
@@ -40,6 +40,7 @@ console.log(myArray);
 myArray.pop()
 myArray.pop()
 myArray.push(4, 5)
+// removed 4 and 5 from the end and added them back in the correct order
 
 
 
