@@ -14,5 +14,5 @@ eq2.textContent = `${pi} * ${radius}\^2 = ${area}`
 document.body.append(eq2);
 
 function calcArea(radius){
-    return radius * radius * 3.14;
+    return radius**2 * 3.14;
 }
