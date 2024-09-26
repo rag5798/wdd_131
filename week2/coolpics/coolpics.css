@@ -40,6 +40,9 @@ main{
 footer{
     text-align: center;
     background-color: var(--primary-color);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 footer p{
