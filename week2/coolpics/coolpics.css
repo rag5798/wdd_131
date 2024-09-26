@@ -116,8 +116,7 @@ header a{
     max-width: 90%;
     margin: 0 auto;
     width: fit-content;
-    height: fit-content;
-
+    height: 100%;
 }
 
 .close-viewer{
@@ -153,6 +152,12 @@ header a{
     .viewer{
         grid-template-rows: 0.01fr 1fr;
     }
+
+    .gallery{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column: span 2;
+    }
 }
 
 @media screen and  (min-width: 850px){
@@ -178,12 +183,22 @@ header a{
         grid-template-columns: 1fr 1fr 1fr;
     }
 
+    .gallery{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column: span 3;
+    }
+
     main h2{
         grid-column: span 3;
     }
 
-    .viewer{
-        grid-template-rows: .5fr 1fr;
+    .viewer img{
+        margin-top: 0%;
+        object-fit: contain;
+        max-height: 80vh;
+        max-width: fit-content;
     }
+
 }
 

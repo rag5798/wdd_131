@@ -43,7 +43,7 @@ function manageImageViewer(event){
     }else{
         const viewer = document.querySelector('.viewer');
         const viewer_img = viewer.querySelector('img');
-        viewer_img.src = img.src;
+        viewer_img.src = img.src.split('-').slice(0, -1).join('-') + '-full.jpeg';
         viewer.classList.remove('hide');
     }
 }
