@@ -3,6 +3,16 @@ body{
     font-family: Helvetica, Arial, sans-serif;
 }
 
+.skiptocontent a{
+    position:absolute;
+    top:-40px;
+}
+
+.skiptocontent a:focus{
+    top: 0;
+    background-color: #ff0000;
+}
+
 header{
     display: grid;
     grid-template-rows: 1fr .4fr;
