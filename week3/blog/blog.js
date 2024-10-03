@@ -1,7 +1,7 @@
 
 function makeArticle(item){
     const article_content = `<div class="rating_box">
-                            <h3 id="date">${item.date}</h3>
+                            <p id="date">${item.date}</p>
                             <p id="age">${item.ages}</p>
                             <p id="genre">${item.genre}</p>
                             <p id="rating">${item.stars}</p>
