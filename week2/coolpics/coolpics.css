@@ -130,6 +130,10 @@ header a{
     display: grid;
 }
 
+footer{
+    color: var(--accent-color);
+}
+
 @media screen and (min-width: 600px){
     header{
         display: grid;
@@ -160,7 +164,7 @@ header a{
     }
 }
 
-@media screen and  (min-width: 850px){
+@media screen and  (min-width: 1000px){
     header{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
