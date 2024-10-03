@@ -67,14 +67,18 @@ main{
 .book_box{
     display: grid;
     grid-template-columns: .5fr 1fr;
+    height: fit-content;
+    margin-top: 25px;
 }
 
 .rating_box{
     text-align: right;
+    margin-right: 10px;
 }
 
 .summary_box{
     text-align: center;
+    border-left: 1px solid #EFC69B;
 }
 
 .filter_box{
