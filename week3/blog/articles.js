@@ -1,15 +1,15 @@
 
-function makeArticle(item){
+function makeArticle(json){
     const article_content = `<div class="rating_box">
-                            <p id="date">${item.date}</p>
-                            <p id="age">${item.ages}</p>
-                            <p id="genre">${item.genre}</p>
-                            <p id="rating">${item.stars}</p>
+                            <p id="date">${json.date}</p>
+                            <p id="age">${json.ages}</p>
+                            <p id="genre">${json.genre}</p>
+                            <p id="rating">${json.stars}</p>
                         </div>
                         <div class="summary_box">
-                            <h2 id="title">${item.title}</h2>
-                            <img src=${item.imgSrc} alt=${item.imgAlt}>
-                            <p id="summary">${item.description}</p>
+                            <h2 id="title">${json.title}</h2>
+                            <img src=${json.imgSrc} alt=${json.imgAlt}>
+                            <p id="summary">${json.description}</p>
                         </div>`;
 
     const article = document.createElement('article');
