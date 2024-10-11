@@ -181,22 +181,13 @@ async function showOneDealer(){
 
 
 async function flipHidden(){
-    return new Promise((resolve) => {
-        // Simulate a delay for the hidden card flip
-        setTimeout(() => {
-            const dealer_element = document.querySelector('#dealer_hand');
-            const hidden_card = dealer_element.children[1];
-
-            // Change the card's `src` attribute to display the actual card image
-            hidden_card.src = `https://deckofcardsapi.com/static/img/${hidden_card.getAttribute('data-value')}.png`;
-
-            // Log for debugging
-            console.log('Hidden card flipped.');
-
-            // Resolve the promise to signal that the flipping is done
-            resolve();
-        }, 1000); // Adjust the delay time (1000ms = 1 second) as needed
-    });
+    const dealer_element = document.querySelector('#dealer_hand');
+    const hidden_card = dealer_element.children[1];
+    const response = await fetch(`https://deckofcardsapi.com/static/img/${hidden_card.getAttribute('data-value')}.png`)
+    //AI recommended the use of this section of code
+    const img = await response.blob()
+    const url = URL.createObjectURL(img)
+    hidden_card.src = url;
 }
 
 
@@ -216,16 +207,13 @@ async function startGame() {
 
 
 async function playDealer(){
-    return new Promise(async function(resolve){
-        let score = calcScoreDealer()
+    let score = calcScoreDealer()
 
-        while (score < 17){
-            await showOneDealer()
-            score = calcScoreDealer()
-            setTimeout(() => {}, 1000)
-        }
-        resolve()
-    })
+    while (score < 17){
+        await showOneDealer()
+        score = calcScoreDealer()
+        setTimeout(() => {}, 1000)
+    }
 }
 
 function clearBoard(){
