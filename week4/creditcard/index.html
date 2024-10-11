@@ -24,23 +24,23 @@
                 height="55px">
                 <div class="cardNumDiv">
                     <label for="cardNum" id="numLabel">CARD NUMBER</label>
-                    <input type="text" name="cardNum" id="numInput" placeholder="1234 1234 1234 1234" maxlength="19">
+                    <input type="text" name="cardNum" id="numInput" placeholder="1234123412341234" maxlength="16" pattern="[0-9]{16}" required>
                 </div>
                 <div class="cardHolderDiv">
                     <label for="name" id="name">CARD HOLDER</label>
-                    <input type="text" name="name" id="cardHolderInput" placeholder="John Doe">
+                    <input type="text" name="name" id="cardHolderInput" placeholder="John Doe" required>
                 </div>
                 <div class="experationFields">
                     <label for="experation" id="experationLabel">EXPERATION</label>
-                    <input type="text" name="expiration" id="month" placeholder="MM" maxlength="2" pattern="[0-9]{2}">
-                    <input type="text" name="experation" id="year" placeholder="YY" maxlength="2" pattern="[0-9]{2}">
+                    <input type="text" name="expiration" id="month" placeholder="MM" maxlength="2" pattern="[0-9]{2}" required>
+                    <input type="text" name="experation" id="year" placeholder="YY" maxlength="2" pattern="[0-9]{2}" required>
                 </div>
             </div>
             <div class="cardBack">
                 <div class="bar"></div>
                 <div class="ccvDiv">
                     <label for="ccv" id="ccvLabel">CCV/PIN</label>
-                    <input type="text" name="ccv" id="ccvInput" placeholder="XXX" maxlength="3" pattern="[0-9]{3}">
+                    <input type="text" name="ccv" id="ccvInput" placeholder="XXX" maxlength="3" pattern="[0-9]{3}" required>
                 </div>
             </div>
             <button type="submit" id="submit">Submit</button>
