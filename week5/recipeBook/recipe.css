@@ -1,0 +1,146 @@
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title-div {
+    display: flex;
+    align-items: center;
+}
+
+#logo {
+    height: 150px;
+    margin-right: 10px;
+}
+
+#logo:hover{
+    cursor: pointer;
+}
+
+#search-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+}
+
+#search-form {
+    display: flex;
+    width: 100%;
+}
+
+#search-input {
+    height: 40px;
+    width: 90%;
+    border: 2px solid black;
+    border-radius: 3px;
+    outline: none;
+    padding: 0 10px;
+    margin-top: 5%;
+}
+
+#search-button {
+    height: 43px;
+    border: 2px solid black;
+    border-radius: 3px;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 5%;
+    padding: 10px;
+}
+
+#search {
+    height: 20px; 
+}
+
+#backToHome{
+    width: 50px;
+    height: 25px;
+    margin: 25px auto;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 0;
+}
+
+.recipe-box{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-items: center;
+    margin-top: 20%;
+}
+
+.recipe-images{
+    max-width: 300px;
+}
+
+.type{
+    display: inline-flex;
+}
+
+.type p{
+    font-weight: bold;
+    font-size: 20px;
+    border: 2px solid black;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.item-name{
+    margin: 0;
+    font-size: 50px;
+}
+
+.stars{
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.description-header{
+    margin-top: 5px;
+}
+
+footer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    text-align: center;
+}
+
+footer img{
+    width: 50px;
+}
+
+.links{
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    margin-bottom: 25px;
+}
+
+
+@media (min-width: 600px) {
+    .recipe-box{
+        display: flex;
+        flex-direction: row;
+        justify-items: center;
+        margin-top: 5%;
+    }
+
+    .recipe-details{
+        margin: 50px;
+    }
+
+    .type{
+        height: fit-content;
+    }
+}
