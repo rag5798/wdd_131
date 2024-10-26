@@ -73,6 +73,7 @@ function calcScoreDealer(){
 
     if (score_div.childNodes.length < 1){
         const score_element = document.createElement('p')
+        score_element.classList.add('score')
         score_element.textContent = `${score}`
         score_div.append(score_element)
     }else{
@@ -96,7 +97,7 @@ function calcScorePlayer(){
         if (card_code in card_map){
             const old_score = score
             score += card_map[card_code]
-            if (score > 21 & card_code.match('A.')){
+            if (score > 21 & card_code.includes('A')){
                 score = old_score + 1
             }
         }
@@ -104,11 +105,9 @@ function calcScorePlayer(){
 
 
     if (score_div.childNodes.length < 1){
-        const score_element = document.createElement('p')
-        score_element.textContent = `${score}`
-        score_div.append(score_element)
+        score_div.textContent = `${score}`
     }else{
-        score_div.children[0].textContent = `${score}`
+        score_div.textContent = `${score}`
     }
 
     return score
@@ -126,6 +125,7 @@ async function showTwoCards(){
 
     cards.forEach(function (card, index){
         const card_img = document.createElement('img');
+        card_img.classList.add('card_img');
         card_img.alt = 'Image of a Card from deckofcardsapi.com';
         card_img.setAttribute('data-value', card.cards[0].code);
         if (index === 3){
@@ -153,6 +153,7 @@ async function showOnePlayer(){
 
     cards.forEach(function (card){
         const card_img = document.createElement('img');
+        card_img.classList.add('card_img');
         card_img.alt = 'Image of a Card from deckofcardsapi.com';
         card_img.setAttribute('data-value', card.cards[0].code);
         card_img.src = card.cards[0].image;
@@ -171,6 +172,7 @@ async function showOneDealer(){
 
     cards.forEach(function (card){
         const card_img = document.createElement('img');
+        card_img.classList.add('card_img');
         card_img.alt = 'Image of a Card from deckofcardsapi.com';
         card_img.setAttribute('data-value', card.cards[0].code);
         card_img.src = card.cards[0].image;
@@ -199,7 +201,8 @@ async function startGame() {
         await showTwoCards()
         const score = calcScorePlayer()
         if (score === 21){
-            alert('BLACKJACK')
+            await flipHidden()
+            delclareWinner()
             startGame()
         }
     }
@@ -228,9 +231,10 @@ function clearBoard(){
 function delclareWinner(){
     const scores = document.querySelectorAll('.score')
     const text = document.createElement('h1')
+    const winner = document.createElement('h1')
     if (parseInt(scores[1].textContent) > parseInt(scores[0].textContent) || parseInt(scores[0].textContent) > 21){
         const winner_div = document.querySelector('#winner')
-        text.textContent = `PLAYER WINS PLAYER: ${scores[1].textContent} DEALER: ${scores[0].textContent}`
+        text.textContent = `PLAYER WINS WITH ${scores[1].textContent}`
         winner_div.append(text)
         winner_div.classList.remove('hidden')
         setTimeout(() => {
@@ -241,7 +245,7 @@ function delclareWinner(){
         }, 5000)
     }else{
         const loser_div = document.querySelector('#loser')
-        text.textContent = `DEALER WINS DEALER: ${scores[0].textContent} PLAYER: ${scores[1].textContent}`
+        text.textContent = `DEALER WINS WITH ${scores[0].textContent}`
         loser_div.append(text)
         loser_div.classList.remove('hidden')
         setTimeout(() => {
@@ -253,6 +257,14 @@ function delclareWinner(){
     }
 }
 
+function disableButtons(duration) {
+    hit.disabled = true;
+    stand.disabled = true;
+    setTimeout(() => {
+        hit.disabled = false;
+        stand.disabled = false;
+    }, duration);
+}
 
 
 const hit = document.querySelector('#hit')
@@ -261,34 +273,37 @@ const stand = document.querySelector('#stand')
 startGame()
 
 
-hit.addEventListener('click', async function(){
-    hit.disabled = true;
-    await showOnePlayer()
-    const score = calcScorePlayer()
-    if (score > 21){
+let isProcessing = false;
+
+hit.addEventListener('click', async function () {
+    if (isProcessing) return;
+
+    isProcessing = true;
+    disableButtons(750);
+
+    await showOnePlayer();
+    const score = calcScorePlayer();
+
+    if (score > 21) {
         await flipHidden()
-        const loser_div = document.querySelector('#loser')
-        const scores = document.querySelectorAll('.score')
-        const text = document.createElement('h1')
-        text.textContent = `DEALER WINS DEALER: ${scores[0].textContent} PLAYER: ${scores[1].textContent}`
-        loser_div.append(text)
-        loser_div.classList.remove('hidden')
+        disableButtons(5000);
+        calcScoreDealer()
+        delclareWinner()
         setTimeout(() => {
-            loser_div.classList.add('hidden')
-            clearBoard()
-            startGame()
-            text.remove()
-        }, 5000)
+            isProcessing = false;
+        }, 5000);
+    } else {
+        isProcessing = false;
     }
-    setTimeout(function() {
-        hit.disabled = false;
-    }, 1000);
-})
+});
+
 
 
 
 stand.addEventListener('click', async function() {
+    if (isProcessing) return;
     stand.disabled = true;
+    hit.disabled = true;
     const dealer_hand = document.querySelector('#dealer_hand')
 
     await flipHidden()
@@ -298,5 +313,6 @@ stand.addEventListener('click', async function() {
 
     setTimeout(function() {
         stand.disabled = false;
-    }, 500);
+        hit.disabled = false;
+    }, 5000);
 })
