@@ -65,7 +65,7 @@ function calcScoreDealer(){
         if (card_code in card_map){
             const old_score = score
             score += card_map[card_code]
-            if (score > 21 & card_code.match('A.')){
+            if (score > 21 & card_code.includes('A')){
                 score = old_score + 1
             }
         }
@@ -190,6 +190,7 @@ async function flipHidden(){
     const img = await response.blob()
     const url = URL.createObjectURL(img)
     hidden_card.src = url;
+    //***********************************
 }
 
 
@@ -199,11 +200,13 @@ async function startGame() {
     const shuffle_response = await initial_shuffle.json();
     if (shuffle_response.success === true){
         await showTwoCards()
-        const score = calcScorePlayer()
-        if (score === 21){
+        const playerScore = calcScorePlayer()
+        if (playerScore === 21){
             await flipHidden()
-            delclareWinner()
-            startGame()
+            declareWinner()
+            setTimeout(() => {
+                startGame();
+            }, 5000)
         }
     }
 }
@@ -214,13 +217,12 @@ async function playDealer(){
 
     while (score < 17){
         await showOneDealer()
-        score = calcScoreDealer()
-        setTimeout(() => {}, 1000)
+        score = calcScoreDealer();
     }
 }
 
 function clearBoard(){
-    const images = document.querySelectorAll('img')
+    const images = document.querySelectorAll('.table img')
     const dealer_score = document.querySelector('#score_dealer')
     const player_score = document.querySelector('#score_player')
     images.forEach(element => element.remove())
@@ -228,13 +230,31 @@ function clearBoard(){
     player_score.textContent = ''
 }
 
-function delclareWinner(){
-    const scores = document.querySelectorAll('.score')
+function declareWinner(){
+    let playerScore = document.querySelector('#score_player')
+    let dealerScore = document.querySelector('#score_dealer')
+    const interval = setInterval(() => {
+        dealerScore = document.querySelector('#score_dealer')
+        if (dealerScore) {
+            clearInterval(interval)
+        }
+    }, 50)
     const text = document.createElement('h1')
     const winner = document.createElement('h1')
-    if (parseInt(scores[1].textContent) > parseInt(scores[0].textContent) || parseInt(scores[0].textContent) > 21){
+    if (parseInt(playerScore.textContent) > parseInt(dealerScore.textContent) && parseInt(playerScore.textContent) <= 21){
         const winner_div = document.querySelector('#winner')
-        text.textContent = `PLAYER WINS WITH ${scores[1].textContent}`
+        text.textContent = `PLAYER WINS WITH ${playerScore.textContent}`
+        winner_div.append(text)
+        winner_div.classList.remove('hidden')
+        setTimeout(() => {
+            winner_div.classList.add('hidden')
+            clearBoard()
+            startGame()
+            text.remove()
+        }, 5000)
+    }else if (parseInt(dealerScore.textContent) === parseInt(playerScore.textContent)){
+        const winner_div = document.querySelector('#winner')
+        text.textContent = `PLAYERS PUSH WITH ${dealerScore.textContent}`
         winner_div.append(text)
         winner_div.classList.remove('hidden')
         setTimeout(() => {
@@ -245,7 +265,7 @@ function delclareWinner(){
         }, 5000)
     }else{
         const loser_div = document.querySelector('#loser')
-        text.textContent = `DEALER WINS WITH ${scores[0].textContent}`
+        text.textContent = `DEALER WINS WITH ${dealerScore.textContent}`
         loser_div.append(text)
         loser_div.classList.remove('hidden')
         setTimeout(() => {
@@ -288,7 +308,7 @@ hit.addEventListener('click', async function () {
         await flipHidden()
         disableButtons(5000);
         calcScoreDealer()
-        delclareWinner()
+        declareWinner()
         setTimeout(() => {
             isProcessing = false;
         }, 5000);
@@ -309,7 +329,7 @@ stand.addEventListener('click', async function() {
     await flipHidden()
     await playDealer()
 
-    delclareWinner()
+    declareWinner()
 
     setTimeout(function() {
         stand.disabled = false;
