@@ -185,12 +185,7 @@ async function showOneDealer(){
 async function flipHidden(){
     const dealer_element = document.querySelector('#dealer_hand');
     const hidden_card = dealer_element.children[1];
-    const response = await fetch(`https://deckofcardsapi.com/static/img/${hidden_card.getAttribute('data-value')}.png`)
-    //AI recommended the use of this section of code
-    const img = await response.blob()
-    const url = URL.createObjectURL(img)
-    hidden_card.src = url;
-    //***********************************
+    hidden_card.src = `https://deckofcardsapi.com/static/img/${hidden_card.getAttribute('data-value')}.png`;
 }
 
 
