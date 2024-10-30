@@ -319,7 +319,6 @@ stand.addEventListener('click', async function() {
     if (isProcessing) return;
     stand.disabled = true;
     hit.disabled = true;
-    const dealer_hand = document.querySelector('#dealer_hand')
 
     await flipHidden()
     await playDealer()
