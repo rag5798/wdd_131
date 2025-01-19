@@ -1,4 +1,4 @@
-let deck_id = '1pgk4w7g7vyr'
+let deck_id = 'ndtahzliqnde'
 
 let suits =
 {
